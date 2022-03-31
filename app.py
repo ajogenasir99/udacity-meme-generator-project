@@ -55,12 +55,12 @@ def meme_rand():
 
     img = random.choice(imgs)
     quote = random.choice(quotes)
-    print(img)
-    print(quote)
+    # print(img)
+    # print(quote)
 
     path = meme.make_meme(img, quote.body, quote.author)
-    path = path[1:]
-    print(path)
+
+    # print(path)
     return render_template('meme.html', path=path)
 
 
@@ -96,4 +96,4 @@ def meme_post():
 
 
 if __name__ == "__main__":
-    app.run(host='localhost')
+    app.run()
