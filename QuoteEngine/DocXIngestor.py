@@ -1,3 +1,4 @@
+"""Docx File Parsing Module"""
 from typing import List
 import docx
 
@@ -6,10 +7,15 @@ from .IngestorInterface import IngestorInterface
 
 
 class DocXIngestor(IngestorInterface):
+    """Parses and splits docx data using docx"""
     allowed_extensions = ['docx']
 
     @classmethod
     def parse(cls, path: str) -> List[QuoteModel]:
+        """parses data from each paragraph
+        and creates the body and author of the quote model
+        using the parsed data"""
+
         if not cls.can_ingest(path):
             raise Exception('cannot ingest exception')
 

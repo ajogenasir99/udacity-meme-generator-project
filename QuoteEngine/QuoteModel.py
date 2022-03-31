@@ -1,3 +1,6 @@
+"""Module for creating Quotes with a body and a class"""
+
+
 class QuoteModel():
     def __init__(self, body, author):
         self.body = body

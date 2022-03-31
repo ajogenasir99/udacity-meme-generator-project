@@ -1,3 +1,4 @@
+"""Csv File Parsing Module"""
 from typing import List
 import pandas
 
@@ -6,10 +7,14 @@ from .IngestorInterface import IngestorInterface
 
 
 class CsvIngestor(IngestorInterface):
+    """Parses and splits Csv data using pandas"""
     allowed_extensions = ['csv']
 
     @classmethod
     def parse(cls, path: str) -> List[QuoteModel]:
+        """parses data from each row of the csv file
+        and creates the body and author of the
+        quote model"""
         if not cls.can_ingest(path):
             raise Exception('cannot ingest exception')
 
