@@ -9,7 +9,7 @@ from MemeEngine import MemeEngine
 
 app = Flask(__name__)
 
-meme = MemeEngine('./output')
+meme = MemeEngine('./static')
 
 
 def setup():
