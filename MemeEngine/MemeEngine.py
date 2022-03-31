@@ -1,16 +1,22 @@
+"""Creates class that will be used to draw
+over images"""
 from PIL import Image, ImageDraw, ImageFont
 import os
 import random
 
 
 class MemeEngine():
+    """Meme generator Class"""
+
     def __init__(self, output_dir):
+        """Check for output directory & creates path if it does not exist"""
         self.output_dir = output_dir
 
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
 
     def make_meme(self, img_path, text, author, width=500) -> str:
+        """Writes on an image to create a meme"""
         img = Image.open(img_path)
         outfile = os.path.join(
             self.output_dir,
