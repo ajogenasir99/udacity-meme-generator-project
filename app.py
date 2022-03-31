@@ -9,7 +9,7 @@ from MemeEngine import MemeEngine
 
 app = Flask(__name__)
 
-meme = MemeEngine('./memeOutpost')
+meme = MemeEngine('./output')
 
 
 def setup():
@@ -24,14 +24,14 @@ def setup():
     # quote_files variable
     quotes = []
 
-    for file in quote_files:
-        quotes.extend(Ingestor.parse(file))
+    for f in quote_files:
+        quotes.extend(Ingestor.parse(f))
 
     images_path = "./_data/photos/dog/"
 
     # TODO: Use the pythons standard library os class to find all
     # images within the images images_path directory
-    imgs = None
+    imgs = []
 
     for root, dirs, files in os.walk(images_path):
         imgs = [os.path.join(root, name) for name in files]
@@ -40,6 +40,8 @@ def setup():
 
 
 quotes, imgs = setup()
+# print(imgs)
+# print(quotes)
 
 
 @app.route('/')
@@ -53,7 +55,12 @@ def meme_rand():
 
     img = random.choice(imgs)
     quote = random.choice(quotes)
+    print(img)
+    print(quote)
+
     path = meme.make_meme(img, quote.body, quote.author)
+    path = path[1:]
+    print(path)
     return render_template('meme.html', path=path)
 
 
@@ -74,18 +81,19 @@ def meme_post():
     #    file and the body and author form paramaters.
     # 3. Remove the temporary saved image.
     t_img = "./temp_img.jpg"
-    img_url = requests.form.get('image_url')
+    img_url = request.form.get('image_url')
     img = requests.get(img_url, stream=True).content
     with open(t_img, "wb") as f:
         f.write(img)
-    
-    body = requests.form.get('body', "")
+
+    body = request.form.get('body', "")
     author = request.form.get('author', "n/a")
     path = meme.make_meme(t_img, body, author)
+
     os.remove(t_img)
 
     return render_template('meme.html', path=path)
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host='localhost')

@@ -1,5 +1,6 @@
 """Creates class that will be used to draw
 over images"""
+
 from PIL import Image, ImageDraw, ImageFont
 import os
 import random
@@ -22,20 +23,16 @@ class MemeEngine():
             self.output_dir,
             f"meme-{random.randint(0,10000000)}.jpg"
         )
-        img_width, img_height = img.size
-        if img.width > width:
-            img_width, img_height = img.size
-            ratio = width/float(img_width)
-            img_height = int(img_height * ratio)
-            new_size = img.resize((width, img_height))
-        else:
-            new_size = img
 
-        d = ImageDraw.Draw(new_size)
+        img_width, img_height = img.size
+        ratio = width/float(img_width)
+        height = int(img_height * ratio)
+
         fnt = ImageFont.truetype("./_data/Fonts/LilitaOne-Regular.ttf", 20)
-        text_pos = random.randint(35, img_height - 50)
+        text_pos = random.randint(35, height - 50)
+        d = ImageDraw.Draw(img)
 
         d.text((10, text_pos), text, font=fnt, fill='white')
         d.text((20, text_pos + 20), f"- {author}", font=fnt, fill="white")
-        new_size.save(outfile, "JPEG")
+        img.save(outfile, "JPEG")
         return outfile

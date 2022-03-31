@@ -50,12 +50,12 @@ if __name__ == "__main__":
     # author - quote author to add to the image
     parser = argparse.ArgumentParser(
         description='Make a meme!.')
-    parser.add_argument('--path', type=str, required=False, default="./_data/photos/dog/xander_1.jpg",
+    parser.add_argument('--path', type=str, required=False,
                         help="Path to an image for the meme.")
     parser.add_argument('--body', type=str, required=False,
-                        default="New bark Woof This.", help="some quote text.")
+                        help="some quote text.")
     parser.add_argument("--author", type=str, required=False,
-                        default="Dogru Xander", help="Who wrote the meme?")
+                        help="Who wrote the meme?")
     args = parser.parse_args()
 
     print(generate_meme(args.path, args.body, args.author))
