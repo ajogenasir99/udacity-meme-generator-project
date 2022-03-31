@@ -14,7 +14,7 @@ class MemeEngine():
         img = Image.open(img_path)
         outfile = os.path.join(
             self.output_dir,
-            f"temp-{random.randint(0,10000000)}.jpg"
+            f"meme-{random.randint(0,10000000)}.jpg"
         )
         img_width, img_height = img.size
         if img.width > width:
