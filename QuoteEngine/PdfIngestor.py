@@ -25,8 +25,8 @@ class PDFIngestor(IngestorInterface):
         if not cls.can_ingest(path):
             raise Exception('cannot ingest exception')
 
-        temp = f'./temp/{random.randint(0,1000000)}.txt'
-        call = subprocess.call(['pdftotext', path, temp])
+        temp = f'./temp{random.randint(0,1000000)}.txt'
+        call = subprocess.call(['pdftotext', '-layout', path, temp])
 
         quotes = []
         with open(temp, "r") as pdfF:
