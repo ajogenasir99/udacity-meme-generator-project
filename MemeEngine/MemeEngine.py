@@ -37,8 +37,9 @@ class MemeEngine():
                     else:
                         new_image = img
 
+                full_quote = f"{text}\n - {author}"
                 wrapper = textwrap.TextWrapper(width=40)
-                quote_text = f"{text}"
+                quote_text = full_quote
                 quote_text = wrapper.fill(text=quote_text)
 
                 stroke_fill = 'black'
@@ -49,8 +50,6 @@ class MemeEngine():
 
                 d.text((10, text_pos), quote_text, font=fnt,
                        stroke_fill=stroke_fill, fill='white')
-                d.text((20, text_pos + 20), f"- {author}", font=fnt,
-                       stroke_fill=stroke_fill, fill="white")
 
             new_image.save(outfile, "JPEG")
 
@@ -63,6 +62,3 @@ class MemeEngine():
             d.text((10, 10), "Invalid Image Url", fill=(255, 255, 0))
             img.save(outfile, 'JPEG')
             return outfile
-
-    # raise UnidentifiedImageError(
-    # PIL.UnidentifiedImageError: cannot identify image file './temp_img.jpg'
