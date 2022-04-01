@@ -3,6 +3,7 @@
 from curses import wrapper
 from email.mime import image
 from PIL import Image, ImageDraw, ImageFont
+import PIL
 import os
 import random
 import textwrap
@@ -46,8 +47,8 @@ class MemeEngine():
                 text_pos = random.randint(35, height - 50)
                 d = ImageDraw.Draw(new_image)
 
-                d.text((10, text_pos), quote_text, font=fnt, stroke_fill=stroke_fill,
-                       fill='white')
+                d.text((10, text_pos), quote_text, font=fnt,
+                       stroke_fill=stroke_fill, fill='white')
                 d.text((20, text_pos + 20), f"- {author}", font=fnt,
                        stroke_fill=stroke_fill, fill="white")
 
@@ -55,10 +56,13 @@ class MemeEngine():
 
             return outfile
 
-        except:
+        except PIL.UnidentifiedImageError:
             print('Path Invalid Unable to open Image')
             img = Image.new('RGB', (500, 300), color=(73, 109, 137))
             d = ImageDraw.Draw(img)
             d.text((10, 10), "Invalid Image Url", fill=(255, 255, 0))
             img.save(outfile, 'JPEG')
             return outfile
+
+    # raise UnidentifiedImageError(
+    # PIL.UnidentifiedImageError: cannot identify image file './temp_img.jpg'
