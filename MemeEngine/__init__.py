@@ -1,2 +1,2 @@
-"""imports class and makes it available as a module"""
+"""Import class and makes it available as a module."""
 from .MemeEngine import MemeEngine

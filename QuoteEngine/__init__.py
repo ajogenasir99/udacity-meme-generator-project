@@ -1,5 +1,4 @@
-"""imports classes and makes them available 
-at module level"""
+"""imports classes and makes them available at module level."""
 
 from .DocXIngestor import DocXIngestor
 from .CsvIngestor import CsvIngestor
