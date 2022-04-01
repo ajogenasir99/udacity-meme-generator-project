@@ -1,9 +1,11 @@
 """Creates class that will be used to draw over images."""
 
+from curses import wrapper
 from email.mime import image
 from PIL import Image, ImageDraw, ImageFont
 import os
 import random
+import textwrap
 
 
 class MemeEngine():
@@ -23,24 +25,40 @@ class MemeEngine():
             f"meme-{random.randint(0,10000000)}.jpg"
         )
 
-        img = Image.open(img_path)
-        img_width, img_height = img.size
-        ratio = width/float(img_width)
-        height = int(img_height * ratio)
-        if img_width > 500:
-            new_image = img.resize((width, height), Image.NEAREST)
-        else:
-            new_image = img
+        try:
+            with Image.open(img_path) as img:
+                if width is not None:
+                    img_width, img_height = img.size
+                    ratio = width/float(img_width)
+                    height = int(img_height * ratio)
+                    if img_width > 500:
+                        new_image = img.resize((width, height), Image.NEAREST)
+                    else:
+                        new_image = img
 
-        stroke_fill = 'black'
-        fnt = ImageFont.truetype("./_data/Fonts/LilitaOne-Regular.ttf", 20)
-        text_pos = random.randint(35, height - 50)
-        d = ImageDraw.Draw(new_image)
+                wrapper = textwrap.TextWrapper(width=40)
+                quote_text = f"{text}"
+                quote_text = wrapper.fill(text=quote_text)
 
-        d.text((10, text_pos), text, font=fnt, stroke_fill=stroke_fill,
-               fill='white')
-        d.text((20, text_pos + 20), f"- {author}", font=fnt,
-               stroke_fill=stroke_fill, fill="white")
-        new_image.save(outfile, "JPEG")
+                stroke_fill = 'black'
+                fnt = ImageFont.truetype(
+                    "./_data/Fonts/LilitaOne-Regular.ttf", 20)
+                text_pos = random.randint(35, height - 50)
+                d = ImageDraw.Draw(new_image)
 
-        return outfile
+                d.text((10, text_pos), quote_text, font=fnt, stroke_fill=stroke_fill,
+                       fill='white')
+                d.text((20, text_pos + 20), f"- {author}", font=fnt,
+                       stroke_fill=stroke_fill, fill="white")
+
+            new_image.save(outfile, "JPEG")
+
+            return outfile
+
+        except:
+            print('Path Invalid Unable to open Image')
+            img = Image.new('RGB', (500, 300), color=(73, 109, 137))
+            d = ImageDraw.Draw(img)
+            d.text((10, 10), "Invalid Image Url", fill=(255, 255, 0))
+            img.save(outfile, 'JPEG')
+            return outfile

@@ -74,15 +74,19 @@ def meme_post():
     """Create a user defined meme."""
     # Using requests to save the image from the image_url
     #    form param to a temp local file.
-
-    t_img = "./temp_img.jpg"
     img_url = request.form.get('image_url')
-    img = requests.get(img_url, stream=True).content
-    with open(t_img, "wb") as f:
-        f.write(img)
-
     body = request.form.get('body', "")
     author = request.form.get('author', "n/a")
+
+    try:
+        img = requests.get(img_url)
+    except requests.exceptions.ConnectionError as e:
+        print("Invalid URL.")
+        return "Invalid URL. Please Try Again :)"
+
+    t_img = "./temp_img.jpg"
+    with open(t_img, "wb") as f:
+        f.write(img.content)
 
     # Using the meme object to generate a meme using this temp
     # file and the body and author form paramaters.
