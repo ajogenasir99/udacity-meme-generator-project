@@ -16,22 +16,47 @@ pandas==1.4.1
 Pillow==9.0.1
 python-docx==0.8.11
 requests==2.27.1
+MarkupSafe==2.1.1
+Jinja2==3.1.1
+click==8.1.0
+itsdangerous==2.1.2
 ```
 
 you can get this files in the requirements.txt file and install via the command 
 `pip install -r requirements.txt` for a venv or install each directly using pip.
+if you going to use a virtual env(which is prefarable)
+use the following steps to set up the venv
+
+1. Install virtual env
+`pip install virtualenv`
+
+2. Create a new virtual environment
+Open a terminal in the project root directory and run `python3 -m venv venv`
+
+3. Activate your virtual environment
+Run this command to activate `.\venv\bin\activate\`
+
+4 upgrade your virtual environments pip
+run `pip install --upgrade pip`
+
+5. Install the project dependencies
+Run `pip install -r requirements.txt`
+
 
 ## Usage
-this project can be run via two major ways.
+This project can be run in two ways.
 
 ### 1. Web APP.
-To run meme-generator via the web we use the Python Framework flask, first we run the following lines to deploy the app
+To run meme-generator via the web we use the Python Framework flask, first we run the following lines (from the root of the project) to deploy the app
 
 ```
-export FLASK_APP=app.py
-flask run --host localhost --port 3000 --reload
+python3 app.py
 ```
 the we open up localhost:3000
+
+#### NOTE
+you can also access the app directly using the link provided in the about
+section of this repo instead of downloading it locally.
 
 The Web app has two interfaces, you can click the random button to generate random default files, or you can click the creator button
 to create your own meme by attaching a link, the meme quote and author
