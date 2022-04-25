@@ -1,5 +1,6 @@
 """Responsible for running the Meme Generator Web interface."""
 
+from distutils.log import debug
 import random
 import os
 import requests
@@ -99,4 +100,4 @@ def meme_post():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True, port=3000)
